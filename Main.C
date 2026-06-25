@@ -12,9 +12,9 @@ int main(int argc, char *argv[])
     int opc2;
 
     limites.limiteCO2 = 1000;
-    limites.limiteSO2 = 75;
-    limites.limiteNO2 = 200;
-    limites.limitePM25 = 25;
+    limites.limiteSO2 = 40;
+    limites.limiteNO2 = 25;
+    limites.limitePM25 = 15;
 
     do
     {
@@ -23,16 +23,9 @@ int main(int argc, char *argv[])
         switch (opc)
         {
         case 1:
-            if (totalZonas < 100000)
-            {
-                registrarZona(&zonas[totalZonas]);
-                totalZonas++;
-                printf("\nZona registrada correctamente.");
-            }
-            else
-            {
-                printf("\nNo se pueden registrar mas zonas.");
-            }
+            registrarZona(&zonas[totalZonas]);
+            totalZonas++;
+            printf("\nZona registrada correctamente.");
             break;
 
         case 2:
@@ -60,7 +53,6 @@ int main(int argc, char *argv[])
             break;
 
         case 8:
-            printf("\nSaliendo del sistema...\n");
             return 0;
 
         default:

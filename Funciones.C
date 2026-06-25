@@ -65,9 +65,6 @@ float validarFloatRango(float a, float b)
 
 void registrarZona(Zona *z)
 {
-    printf("\nID de la zona: ");
-    (*z).idZona = validarEntero(1, 9999);
-
     printf("\nNombre de la zona: ");
     leerCadena((*z).nombreZona, 50);
 
@@ -133,41 +130,47 @@ void monitoreoActual(Zona zonas[], int totalZonas, LimitesOMS limites)
 
     printf("\nMONITOREO DE CONTAMINACION ");
     printf("\nZona: %s\n", zonas[pos].nombreZona);
+    printf("\n--- LIMITES PERMITIDOS (OMS) ---\n");
+    printf("CO2: %.2f\n", limites.limiteCO2);
+    printf("SO2: %.2f\n", limites.limiteSO2);
+    printf("NO2: %.2f\n", limites.limiteNO2);
+    printf("PM2.5: %.2f\n", limites.limitePM25);
+    printf("\n--- VALORES ACTUALES ---\n");
 
     if (zonas[pos].actual.co2 > limites.limiteCO2)
     {
-        printf("\nCO2 supera el limite permitido.");
+        printf("\nCO2: %.2f (SUPERA el limite permitido)", zonas[pos].actual.co2);
     }
     else
     {
-        printf("\nCO2 dentro del limite permitido.");
+        printf("\nCO2: %.2f (Dentro del limite)", zonas[pos].actual.co2);
     }
 
     if (zonas[pos].actual.so2 > limites.limiteSO2)
     {
-        printf("\nSO2 supera el limite permitido.");
+        printf("\nSO2: %.2f (SUPERA el limite permitido)", zonas[pos].actual.so2);
     }
     else
     {
-        printf("\nSO2 dentro del limite permitido.");
+        printf("\nSO2: %.2f (dentro del limite)", zonas[pos].actual.so2);
     }
 
     if (zonas[pos].actual.no2 > limites.limiteNO2)
     {
-        printf("\nNO2 supera el limite permitido.");
+        printf("\nNO2: %.2f (SUPERA el limite permitido)", zonas[pos].actual.no2);
     }
     else
     {
-        printf("\nNO2 dentro del limite permitido.");
+        printf("\nNO2: %.2f (Dentro del limite)", zonas[pos].actual.no2);
     }
 
     if (zonas[pos].actual.pm25 > limites.limitePM25)
     {
-        printf("\nPM2.5 supera el limite permitido.");
+        printf("\nPM2.5: %.2f (SUPERA el limite permitido)\n", zonas[pos].actual.pm25);
     }
     else
     {
-        printf("\nPM2.5 dentro del limite permitido.");
+        printf("\nPM2.5: %.2f (Dentro del limite)\n", zonas[pos].actual.pm25);
     }
 }
 
@@ -225,11 +228,10 @@ void predecir24h(Zona zonas[], int totalZonas)
     zonas[pos].prediccion24h.pm25 = (sumaPM25 / zonas[pos].numRegistros) * factor;
 
     printf("\nPREDICCION PARA LAS PROXIMAS 24 HORAS");
-    printf("\nZona: %s", zonas[pos].nombreZona);
-
-    printf("\nCO2: %.2f", zonas[pos].prediccion24h.co2);
-    printf("\nSO2: %.2f", zonas[pos].prediccion24h.so2);
-    printf("\nNO2: %.2f", zonas[pos].prediccion24h.no2);
+    printf("\nZona: %s\n", zonas[pos].nombreZona);
+    printf("\nCO2: %.2f\n", zonas[pos].prediccion24h.co2);
+    printf("\nSO2: %.2f\n", zonas[pos].prediccion24h.so2);
+    printf("\nNO2: %.2f\n", zonas[pos].prediccion24h.no2);
     printf("\nPM2.5: %.2f\n", zonas[pos].prediccion24h.pm25);
 }
 
@@ -264,7 +266,7 @@ void mostrarPromediosHistoricos(Zona zonas[], int totalZonas)
     }
 
     printf("\nPROMEDIOS HISTORICOS");
-    printf("\nZona: %s", zonas[pos].nombreZona);
+    printf("\nZona: %s\n", zonas[pos].nombreZona);
 
     printf("\nCO2: %.2f", sumaCO2 / zonas[pos].numRegistros);
     printf("\nSO2: %.2f", sumaSO2 / zonas[pos].numRegistros);
@@ -290,28 +292,33 @@ void generarAlertas(Zona zonas[], int totalZonas, LimitesOMS limites)
 
     printf("\nALERTAS PREVENTIVAS");
     printf("\nZona: %s\n", zonas[pos].nombreZona);
+    printf("\n--- LIMITES PERMITIDOS (OMS) ---\n");
+    printf("CO2: %.2f\n", limites.limiteCO2);
+    printf("SO2: %.2f\n", limites.limiteSO2);
+    printf("NO2: %.2f\n", limites.limiteNO2);
+    printf("PM2.5: %.2f\n", limites.limitePM25);
 
     if (zonas[pos].prediccion24h.co2 > limites.limiteCO2)
     {
-        printf("\nALERTA: CO2 superara el limite permitido.");
+        printf("\nALERTA: CO2 %.2f superara el limite de %.2f.", zonas[pos].prediccion24h.co2, limites.limiteCO2);
         alerta = 1;
     }
 
     if (zonas[pos].prediccion24h.so2 > limites.limiteSO2)
     {
-        printf("\nALERTA: SO2 superara el limite permitido.");
+        printf("\nALERTA: SO2 %.2f superara el limite de %.2f.", zonas[pos].prediccion24h.so2, limites.limiteSO2);
         alerta = 1;
     }
 
     if (zonas[pos].prediccion24h.no2 > limites.limiteNO2)
     {
-        printf("\nALERTA: NO2 superara el limite permitido.");
+        printf("\nALERTA: NO2 %.2f superara el limite de %.2f.", zonas[pos].prediccion24h.no2, limites.limiteNO2);
         alerta = 1;
     }
 
     if (zonas[pos].prediccion24h.pm25 > limites.limitePM25)
     {
-        printf("\nALERTA: PM2.5 superara el limite permitido.");
+        printf("\nALERTA: PM2.5 %.2f superara el limite de %.2f.", zonas[pos].prediccion24h.pm25, limites.limitePM25);
         alerta = 1;
     }
 
@@ -345,8 +352,10 @@ void generarReporte(Zona zonas[], int totalZonas)
 
     for (int i = 0; i < totalZonas; i++)
     {
+        float sumaCO2 = 0, sumaSO2 = 0, sumaNO2 = 0, sumaPM25 = 0, factor = 1.0;
+        int registrosValidos = zonas[i].numRegistros;
+
         fprintf(fp, "Zona %d\n", i + 1);
-        fprintf(fp, "ID: %d\n", zonas[i].idZona);
         fprintf(fp, "Nombre: %s\n\n", zonas[i].nombreZona);
 
         fprintf(fp, "CONTAMINACION ACTUAL\n");
@@ -356,12 +365,45 @@ void generarReporte(Zona zonas[], int totalZonas)
         fprintf(fp, "PM2.5: %.2f\n\n", zonas[i].actual.pm25);
 
         fprintf(fp, "PREDICCION 24 HORAS\n");
-        fprintf(fp, "CO2: %.2f\n", zonas[i].prediccion24h.co2);
-        fprintf(fp, "SO2: %.2f\n", zonas[i].prediccion24h.so2);
-        fprintf(fp, "NO2: %.2f\n", zonas[i].prediccion24h.no2);
-        fprintf(fp, "PM2.5: %.2f\n", zonas[i].prediccion24h.pm25);
 
-        fprintf(fp, "\n-----------------------------------------\n\n");
+        // Calcular predicción de 24 horas sobre la marcha
+        if (registrosValidos > 0)
+        {
+            // Sumar valores del historial
+            for (int j = 0; j < registrosValidos; j++)
+            {
+                sumaCO2 += zonas[i].historial[j].niveles.co2;
+                sumaSO2 += zonas[i].historial[j].niveles.so2;
+                sumaNO2 += zonas[i].historial[j].niveles.no2;
+                sumaPM25 += zonas[i].historial[j].niveles.pm25;
+            }
+
+            // Aplicar factor de ajuste según clima
+            if (zonas[i].climaActual.temperatura > 30)
+                factor += 0.10;
+
+            if (zonas[i].climaActual.velocidadViento < 10)
+                factor += 0.15;
+
+            if (zonas[i].climaActual.humedad > 70)
+                factor += 0.05;
+
+            // Mostrar predicción calculada
+            fprintf(fp, "CO2: %.2f\n", (sumaCO2 / registrosValidos) * factor);
+            fprintf(fp, "SO2: %.2f\n", (sumaSO2 / registrosValidos) * factor);
+            fprintf(fp, "NO2: %.2f\n", (sumaNO2 / registrosValidos) * factor);
+            fprintf(fp, "PM2.5: %.2f\n", (sumaPM25 / registrosValidos) * factor);
+        }
+        else
+        {
+            // Si no hay registros, usar valor actual como predicción
+            fprintf(fp, "CO2: %.2f\n", zonas[i].actual.co2);
+            fprintf(fp, "SO2: %.2f\n", zonas[i].actual.so2);
+            fprintf(fp, "NO2: %.2f\n", zonas[i].actual.no2);
+            fprintf(fp, "PM2.5: %.2f\n", zonas[i].actual.pm25);
+        }
+
+        fprintf(fp, "\n=========================================\n\n");
     }
 
     fclose(fp);
@@ -388,29 +430,34 @@ void generarRecomendaciones(Zona zonas[], int totalZonas, LimitesOMS limites)
 
     printf("\nRECOMENDACIONES");
     printf("\nZona: %s\n", zonas[pos].nombreZona);
+    printf("\n--- PREDICCION PARA LAS PROXIMAS 24 HORAS ---\n");
+    printf("CO2: %.2f\n", zonas[pos].prediccion24h.co2);
+    printf("SO2: %.2f\n", zonas[pos].prediccion24h.so2);
+    printf("NO2: %.2f\n", zonas[pos].prediccion24h.no2);
+    printf("PM2.5: %.2f\n", zonas[pos].prediccion24h.pm25);
 
     if (zonas[pos].prediccion24h.pm25 > limites.limitePM25)
     {
-        printf("\nSuspender actividades al aire libre.");
-        printf("\nUso obligatorio de mascarillas.");
+        printf("\nSuspender actividades al aire libre. (PM2.5)");
+        printf("\nUso obligatorio de mascarillas. (PM2.5)");
         recomendacion = 1;
     }
 
     if (zonas[pos].prediccion24h.no2 > limites.limiteNO2)
     {
-        printf("\nAplicar restricciones vehiculares.");
+        printf("\nAplicar restricciones vehiculares. (NO2)");
         recomendacion = 1;
     }
 
     if (zonas[pos].prediccion24h.so2 > limites.limiteSO2)
     {
-        printf("\nReducir temporalmente la actividad industrial.");
+        printf("\nReducir temporalmente la actividad industrial. (SO2)");
         recomendacion = 1;
     }
 
     if (zonas[pos].prediccion24h.co2 > limites.limiteCO2)
     {
-        printf("\nFomentar el uso de transporte publico.");
+        printf("\nFomentar el uso de transporte publico. (CO2)");
         recomendacion = 1;
     }
 
@@ -427,12 +474,12 @@ void mostrarZonasRegistradas(Zona zonas[], int totalZonas)
         printf("\nNo existen zonas registradas.\n");
         return;
     }
-    printf("\n=====================================================\n");
-    printf("#\t\tID\t\tNOMBRE\n");
-    printf("=====================================================\n");
+    printf("\n================================\n");
+    printf("#\t\tZONA\n");
+    printf("================================\n");
     for (int i = 0; i < totalZonas; i++)
     {
-        printf("%d\t\t%-10d\t%s\n", i + 1, zonas[i].idZona, zonas[i].nombreZona);
+        printf("%d\t\t%s\n", i + 1, zonas[i].nombreZona);
     }
-    printf("=====================================================\n");
+    printf("================================\n");
 }

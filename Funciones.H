@@ -20,7 +20,6 @@ typedef struct
 
 typedef struct
 {
-    int idZona;
     char nombreZona[50];
     int numRegistros;
     Contaminacion actual;
@@ -39,14 +38,12 @@ typedef struct
 
 typedef struct
 {
-    int idZona;
     char mensaje[200];
     int nivelAlerta;
 } Alerta;
 
 typedef struct
 {
-    int idZona;
     char recomendacion[300];
 } Recomendacion;
 
