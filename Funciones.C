@@ -211,7 +211,7 @@ void predecir24h(Zona zonas[], int totalZonas)
 
     if (zonas[pos].climaActual.velocidadViento < 10)
     {
-        factor += 0.15;
+        factor += 0.10;
     }
 
     if (zonas[pos].climaActual.humedad > 70)
@@ -383,7 +383,7 @@ void generarReporte(Zona zonas[], int totalZonas)
                 factor += 0.10;
 
             if (zonas[i].climaActual.velocidadViento < 10)
-                factor += 0.15;
+                factor += 0.10;
 
             if (zonas[i].climaActual.humedad > 70)
                 factor += 0.05;
