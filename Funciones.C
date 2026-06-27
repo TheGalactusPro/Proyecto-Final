@@ -152,7 +152,7 @@ void monitoreoActual(Zona zonas[], int totalZonas, LimitesOMS limites)
     }
     else
     {
-        printf("\nSO2: %.2f (dentro del limite)", zonas[pos].actual.so2);
+        printf("\nSO2: %.2f (Dentro del limite)", zonas[pos].actual.so2);
     }
 
     if (zonas[pos].actual.no2 > limites.limiteNO2)
