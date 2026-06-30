@@ -85,7 +85,7 @@ void registrarZona(Zona *z)
     printf("\nDATOS CLIMATICOS\n");
 
     printf("\nTemperatura: ");
-    (*z).climaActual.temperatura = validarFloatRango(-50, 60);
+    (*z).climaActual.temperatura = validarFloatRango(0, 40);
 
     printf("\nVelocidad del viento: ");
     (*z).climaActual.velocidadViento = validarFloatRango(0, 200);
