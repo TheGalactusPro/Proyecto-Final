@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <string.h>
-#include "funciones.h"
+#include "Funciones.H"
 
 int menu()
 {
@@ -366,10 +366,8 @@ void generarReporte(Zona zonas[], int totalZonas)
 
         fprintf(fp, "PREDICCION 24 HORAS\n");
 
-        // Calcular predicción de 24 horas sobre la marcha
         if (registrosValidos > 0)
         {
-            // Sumar valores del historial
             for (int j = 0; j < registrosValidos; j++)
             {
                 sumaCO2 += zonas[i].historial[j].niveles.co2;
@@ -377,8 +375,6 @@ void generarReporte(Zona zonas[], int totalZonas)
                 sumaNO2 += zonas[i].historial[j].niveles.no2;
                 sumaPM25 += zonas[i].historial[j].niveles.pm25;
             }
-
-            // Aplicar factor de ajuste según clima
             if (zonas[i].climaActual.temperatura > 30)
                 factor += 0.10;
 
@@ -387,8 +383,6 @@ void generarReporte(Zona zonas[], int totalZonas)
 
             if (zonas[i].climaActual.humedad > 70)
                 factor += 0.05;
-
-            // Mostrar predicción calculada
             fprintf(fp, "CO2: %.2f\n", (sumaCO2 / registrosValidos) * factor);
             fprintf(fp, "SO2: %.2f\n", (sumaSO2 / registrosValidos) * factor);
             fprintf(fp, "NO2: %.2f\n", (sumaNO2 / registrosValidos) * factor);
@@ -396,7 +390,6 @@ void generarReporte(Zona zonas[], int totalZonas)
         }
         else
         {
-            // Si no hay registros, usar valor actual como predicción
             fprintf(fp, "CO2: %.2f\n", zonas[i].actual.co2);
             fprintf(fp, "SO2: %.2f\n", zonas[i].actual.so2);
             fprintf(fp, "NO2: %.2f\n", zonas[i].actual.no2);
