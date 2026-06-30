@@ -14,7 +14,7 @@ int menu()
     printf("\n6. Generar recomendaciones");
     printf("\n7. Exportar reporte");
     printf("\n8. Salir");
-    printf("\n>> ");
+    printf("\nIngrese una opcion (1-8): ");
 
     opc = validarEntero(1, 8);
 
@@ -63,34 +63,34 @@ float validarFloatRango(float a, float b)
     return n;
 }
 
-void registrarZona(Zona *z)
+void registrarZona(Zona *z, LimitesOMS limites)
 {
     printf("\nNombre de la zona: ");
     leerCadena((*z).nombreZona, 50);
 
     printf("\n--- Contaminacion actual ---\n");
 
-    printf("\nCO2: ");
-    (*z).actual.co2 = validarFloatRango(0, 10000);
+    printf("\nCO2 (0-%.0f): ", limites.limiteCO2);
+    (*z).actual.co2 = validarFloatRango(0, limites.limiteCO2);
 
-    printf("\nSO2: ");
-    (*z).actual.so2 = validarFloatRango(0, 10000);
+    printf("\nSO2 (0-%.0f): ", limites.limiteSO2);
+    (*z).actual.so2 = validarFloatRango(0, limites.limiteSO2);
 
-    printf("\nNO2: ");
-    (*z).actual.no2 = validarFloatRango(0, 10000);
+    printf("\nNO2 (0-%.0f): ", limites.limiteNO2);
+    (*z).actual.no2 = validarFloatRango(0, limites.limiteNO2);
 
-    printf("\nPM2.5: ");
-    (*z).actual.pm25 = validarFloatRango(0, 10000);
+    printf("\nPM2.5 (0-%.0f): ", limites.limitePM25);
+    (*z).actual.pm25 = validarFloatRango(0, limites.limitePM25);
 
     printf("\nDATOS CLIMATICOS\n");
 
-    printf("\nTemperatura: ");
+    printf("\nTemperatura (0-40): ");
     (*z).climaActual.temperatura = validarFloatRango(0, 40);
 
-    printf("\nVelocidad del viento: ");
+    printf("\nVelocidad del viento (0-200): ");
     (*z).climaActual.velocidadViento = validarFloatRango(0, 200);
 
-    printf("\nHumedad: ");
+    printf("\nHumedad (0-100): ");
     (*z).climaActual.humedad = validarFloatRango(0, 100);
 
     printf("\nCantidad de registros historicos (1-30): ");
@@ -100,17 +100,17 @@ void registrarZona(Zona *z)
     {
         printf("\nRegistro %d\n", i + 1);
 
-        printf("\nCO2: ");
-        (*z).historial[i].niveles.co2 = validarFloatRango(0, 10000);
+        printf("\nCO2 (0-%.0f): ", limites.limiteCO2);
+        (*z).historial[i].niveles.co2 = validarFloatRango(0, limites.limiteCO2);
 
-        printf("\nSO2: ");
-        (*z).historial[i].niveles.so2 = validarFloatRango(0, 10000);
+        printf("\nSO2 (0-%.0f): ", limites.limiteSO2);
+        (*z).historial[i].niveles.so2 = validarFloatRango(0, limites.limiteSO2);
 
-        printf("\nNO2: ");
-        (*z).historial[i].niveles.no2 = validarFloatRango(0, 10000);
+        printf("\nNO2 (0-%.0f): ", limites.limiteNO2);
+        (*z).historial[i].niveles.no2 = validarFloatRango(0, limites.limiteNO2);
 
-        printf("\nPM2.5: ");
-        (*z).historial[i].niveles.pm25 = validarFloatRango(0, 10000);
+        printf("\nPM2.5 (0-%.0f): ", limites.limitePM25);
+        (*z).historial[i].niveles.pm25 = validarFloatRango(0, limites.limitePM25);
     }
 }
 
@@ -125,7 +125,7 @@ void monitoreoActual(Zona zonas[], int totalZonas, LimitesOMS limites)
 
     mostrarZonasRegistradas(zonas, totalZonas);
 
-    printf("\nSeleccione una zona: ");
+    printf("\nSeleccione una zona (1-%d): ", totalZonas);
     pos = validarEntero(1, totalZonas) - 1;
 
     printf("\nMONITOREO DE CONTAMINACION ");
@@ -187,7 +187,7 @@ void predecir24h(Zona zonas[], int totalZonas)
 
     mostrarZonasRegistradas(zonas, totalZonas);
 
-    printf("\nSeleccione una zona: ");
+    printf("\nSeleccione una zona (1-%d): ", totalZonas);
     pos = validarEntero(1, totalZonas) - 1;
 
     if (zonas[pos].numRegistros == 0)
@@ -248,7 +248,7 @@ void mostrarPromediosHistoricos(Zona zonas[], int totalZonas)
 
     mostrarZonasRegistradas(zonas, totalZonas);
 
-    printf("\nSeleccione una zona: ");
+    printf("\nSeleccione una zona (1-%d): ", totalZonas);
     pos = validarEntero(1, totalZonas) - 1;
 
     if (zonas[pos].numRegistros == 0)
@@ -287,7 +287,7 @@ void generarAlertas(Zona zonas[], int totalZonas, LimitesOMS limites)
 
     mostrarZonasRegistradas(zonas, totalZonas);
 
-    printf("\nSeleccione una zona: ");
+    printf("\nSeleccione una zona (1-%d): ", totalZonas);
     pos = validarEntero(1, totalZonas) - 1;
 
     printf("\nALERTAS PREVENTIVAS");
@@ -418,7 +418,7 @@ void generarRecomendaciones(Zona zonas[], int totalZonas, LimitesOMS limites)
 
     mostrarZonasRegistradas(zonas, totalZonas);
 
-    printf("\nSeleccione una zona: ");
+    printf("\nSeleccione una zona (1-%d): ", totalZonas);
     pos = validarEntero(1, totalZonas) - 1;
 
     printf("\nRECOMENDACIONES");

@@ -23,7 +23,7 @@ int main(int argc, char *argv[])
         switch (opc)
         {
         case 1:
-            registrarZona(&zonas[totalZonas]);
+            registrarZona(&zonas[totalZonas], limites);
             totalZonas++;
             printf("\nZona registrada correctamente.");
             break;
@@ -60,8 +60,7 @@ int main(int argc, char *argv[])
             break;
         }
 
-        printf("\nDesea continuar: 1 (Si) o  2 (No)");
-        printf("\n>> ");
+        printf("\nDesea continuar (1-Si, 2-No): ");
 
         opc2 = validarEntero(1, 2);
 

@@ -58,7 +58,7 @@ void leerCadena(char *cadena, int n);
 int validarEntero(int a, int b);
 float validarFloatRango(float a, float b);
 
-void registrarZona(Zona *z);
+void registrarZona(Zona *z, LimitesOMS limites);
 void mostrarZonasRegistradas(Zona zonas[], int totalZonas);
 
 void monitoreoActual(Zona zonas[], int totalZonas, LimitesOMS limites);
